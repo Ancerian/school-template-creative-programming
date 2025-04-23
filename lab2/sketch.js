@@ -1,12 +1,13 @@
 class Monster{
-    constructor(){
+    constructor(s){
         this.x = width;
-        this.y = height / 2;
-        this.speed = 2;
+        this.y = random(0,height);
+        this.speed = s;
     }
     move(){
         this.x -= this.speed;
     }
+
     draw(){
         text("🤢",this.x, this.y );
     }
@@ -15,7 +16,6 @@ class Monster{
         this.y = random(0,height);
         this.speed += 1;
     }
-   
 }
 class Rocket{
     constructor(){
@@ -36,7 +36,8 @@ let rocket;
 function setup() {
     createCanvas(600, 400);
     
-    monster = new Monster (); 
+    monster = new Monster (2); 
+    monster1 = new Monster (3); 
     rocket = new Rocket();
 
 }
@@ -55,6 +56,8 @@ function draw() {
     else{
         monster.move();
         monster.draw();
+        monster1.move();
+        monster1.draw();
 
 
         if(monster.x < 20){
@@ -64,6 +67,14 @@ function draw() {
             }
 
             monster.reset();
+        }
+        if(monster1.x < 20){
+            print(monster1.y - mouseY);
+            if (abs(monster1.y - mouseY) > 10){
+                rocket.lifes -= 1 ;
+            }
+
+            monster1.reset();
         }
     }
 
