@@ -3,28 +3,27 @@ body {
     line-height: 1.6;
     margin: 0;
     padding: 0;
-    color: #00ff00;
+    color: #ffffff;
     background-color: #000000;
-    text-shadow: 2px 2px #003300;
 }
 
 header {
-    background-color: #000066;
+    background-color: #0000006c;
     padding: 20px;
     text-align: center;
-    border-bottom: 4px solid #0000ff;
+    border-bottom: 4px solid #00ff15;
 }
 
 section {
     padding: 20px;
     margin: 20px;
-    background-color: rgba(0, 0, 100, 0.3);
-    border: 4px solid #0000ff;
-    box-shadow: 0 0 10px #0000ff;
+    background-color: rgba(0, 0, 0, 0.397);
+    border: 4px solid #00ff15;
+    
 }
 
 h1, h2, h3 {
-    color: #00ffff;
+    color: #ffffff;
     text-transform: uppercase;
     letter-spacing: 2px;
 }
@@ -37,14 +36,14 @@ ul {
 li {
     margin-bottom: 10px;
     padding: 10px;
-    border: 2px solid #00ff00;
-    background-color: rgba(0, 255, 0, 0.1);
+    border: 2px solid #00ff15;
+    background-color: rgba(0, 0, 0, 0.267);
 }
 
 form {
     display: flex;
     flex-direction: column;
-    background-color: #000033;
+    background-color: #003304;
     padding: 20px;
     border: 4px solid #00ffff;
 }
@@ -57,17 +56,17 @@ label {
 input, textarea {
     margin-bottom: 10px;
     padding: 10px;
-    border: 2px solid #00ff00;
+    border: 2px solid #00ff15;
     border-radius: 0;
-    background-color: #000000;
+    background-color: #0000006c;
     color: #00ff00;
     font-family: 'Courier New', monospace;
 }
 
 button {
     padding: 10px;
-    background-color: #00ff00;
-    color: #000000;
+    background-color: #0000006c;
+    color: #003304;
     border: none;
     font-family: 'Press Start 2P', 'Courier New', monospace;
     text-transform: uppercase;
@@ -76,18 +75,17 @@ button {
 }
 
 button:hover {
-    background-color: #00ffff;
+    background-color: #000000c4;
     transform: scale(1.05);
-    box-shadow: 0 0 15px #00ffff;
 }
 
 footer {
-    background-color: #000066;
+    background-color: #0000006c;
     text-align: center;
     padding: 10px;
     width: 100%;
     bottom: 0;
-    border-top: 4px solid #0000ff;
+    border-top: 4px solid #00ff15;
 }
 
 a {
