@@ -44,3 +44,24 @@ body {
   #choices button:hover {
     background-color: #666;
   }
+
+  .Menu{
+    display:flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    flex-flow: inherit;
+    width: auto;
+    height: auto;
+    padding: 20px;
+    margin: 16px;
+    text-align: center;
+    font-family: 'Press Start 2P', 'Courier New', monospace;
+    background-color: #0000006c;
+    color: #00ff15;
+    border: #00ff15 2px solid;
+    border-radius: 8px;
+  }
+  .Menu:hover{
+    background-color: #000000c4;
+    transform: scale(1.05);
+  }
