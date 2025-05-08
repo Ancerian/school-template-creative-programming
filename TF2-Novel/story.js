@@ -1,8 +1,7 @@
 const story = {
     scene1: {
       background: "images/room.jpg",
-      text: "Оператор: \
-      Ты просыпаешься в тёмной комнате...",
+      text: "Оператор: Ты просыпаешься в тёмной комнате...",
       next: "scene2"
     },
     scene2: {
