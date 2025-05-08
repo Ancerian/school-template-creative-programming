@@ -10,21 +10,23 @@ body {
     min-height: 100vh;
     background-size: cover;
     background-position: center;
-    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Размещаем содержимое внизу */
+    padding: 20px;
     box-sizing: border-box;
-    transition: background-image 0.5s ease;
   }
   
-  #scene {
+  #text {
     background-color: rgba(0, 0, 0, 0.6);
     padding: 20px;
     border-radius: 10px;
-    max-width: 800px;
-    margin: auto;
+    color: white;
+    font-size: 18px;
+    margin-bottom: 20px;
   }
   
   #choices {
-    margin-top: 20px;
     text-align: center;
   }
   
@@ -42,4 +44,3 @@ body {
   #choices button:hover {
     background-color: #666;
   }
-  
