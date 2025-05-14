@@ -297,3 +297,12 @@ function mousePressed() {
   }
 </style>
 */
+
+document.addEventListener('mousemove', (event) => {
+  const header = document.querySelector('header');
+  if (event.clientY <= 50) {
+    header.classList.add('visible'); // Show header
+  } else {
+    header.classList.remove('visible'); // Hide header
+  }
+});
