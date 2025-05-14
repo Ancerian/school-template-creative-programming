@@ -1,0 +1,48 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: black; /* Фон страницы за пределами холста */
+  font-family: 'Arial', sans-serif;
+  color: white;
+  display: flex; /* Чтобы можно было центрировать холст, если нужно */
+  flex-direction: column; /* Кнопка меню сверху, холст ниже */
+  align-items: center; /* Центрировать холст по горизонтали */
+  /* min-height: 100vh; */ /* Если нужно, чтобы холст занимал всю высоту */
+}
+
+header {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start; /* Кнопка меню слева */
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+/* Стили для кнопки меню остаются */
+.Menu {
+  /* ... твои стили для .Menu ... */
+  display: inline-block; /* Изменено для лучшего соответствия */
+  width: auto;
+  height: auto;
+  padding: 10px 20px; /* Уменьшил padding для примера */
+  margin: 10px; /* Уменьшил margin для примера */
+  text-align: center;
+  font-family: 'Press Start 2P', 'Courier New', monospace; /* Убедись, что шрифт подключен или доступен */
+  background-color: #0000006c;
+  color: #00ff15;
+  border: #00ff15 2px solid;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.Menu:hover {
+  background-color: #000000c4;
+  transform: scale(1.05);
+}
+
+/* Можно добавить стиль для самого холста, если нужно (например, рамку) */
+canvas {
+  display: block; /* Убирает лишнее пространство под холстом */
+  /* border: 1px solid #00ff15; */ /* Пример рамки */
+  margin-top: 20px; /* Отступ от хедера */
+}
