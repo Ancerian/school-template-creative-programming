@@ -3,10 +3,6 @@ let currentSceneData;
 let loadedImages = {}; // Кэш для загруженных фоновых изображений
 let visibleButtons = []; // Кнопки, отображаемые на экране
 
-// Размеры холста - можно сделать адаптивными или фиксированными
-const canvasWidth = 800;
-const canvasHeight = 600;
-
 // Параметры для текстового блока
 const textBoxPadding = 20;
 const textBoxHeight = 150; // Высота текстового блока
@@ -22,8 +18,6 @@ const buttonColor = [68, 68, 68]; // #444
 const buttonHoverColor = [102, 102, 102]; // #666
 
 function preload() {
-  // Предварительно загружаем все фоновые изображения
-  // Это предотвращает задержки при смене сцен
   for (const sceneKey in story) {
     if (story.hasOwnProperty(sceneKey)) {
       const scene = story[sceneKey];
@@ -33,8 +27,6 @@ function preload() {
           console.log("Loaded image:", scene.background);
         } catch (error) {
           console.error("Error loading image:", scene.background, error);
-          // Можно загрузить "заглушку" или обработать ошибку
-          // loadedImages[scene.background] = createGraphics(1,1); // placeholder
         }
       }
     }
@@ -42,49 +34,41 @@ function preload() {
 }
 
 function setup() {
-  let canvas = createCanvas(canvasWidth, canvasHeight);
-  // Если ты создал <div id="canvas-container"></div> в HTML:
-  // canvas.parent('canvas-container');
-
+  let canvas = createCanvas(windowWidth, windowHeight); // Адаптивный холст
   textFont('Arial'); // Установка шрифта по умолчанию
   loadScene(currentSceneId);
 }
 
 function draw() {
-  // 1. Отрисовка фона
   if (currentSceneData && loadedImages[currentSceneData.background]) {
     image(loadedImages[currentSceneData.background], 0, 0, width, height);
   } else {
-    background(30); // Темный фон по умолчанию, если изображение не загружено
+    background(30);
     fill(255);
-    textAlign(CENTER,CENTER);
-    text("Loading background or error...", width/2, height/2);
+    textAlign(CENTER, CENTER);
+    text("Loading background or error...", width / 2, height / 2);
   }
 
-  // 2. Отрисовка текстового блока
   if (currentSceneData) {
     const tbX = textBoxPadding;
-    const tbY = height - textBoxHeight - textBoxPadding * 2 - (visibleButtons.length > 0 ? (buttonHeight + buttonPadding) * visibleButtons.length + buttonPadding : 0) ; // Динамический Y, чтобы не перекрывать кнопки
+    const tbY = height - textBoxHeight - textBoxPadding * 2 - (visibleButtons.length > 0 ? (buttonHeight + buttonPadding) * visibleButtons.length + buttonPadding : 0);
     const tbW = width - textBoxPadding * 2;
     const tbH = textBoxHeight;
 
-    fill(0, 0, 0, 150); // Полупрозрачный черный фон (rgba(0,0,0,0.6))
+    fill(0, 0, 0, 150);
     noStroke();
     rect(tbX, tbY, tbW, tbH, textBoxRadius);
 
-    fill(255); // Белый текст
+    fill(255);
     textSize(18);
-    textAlign(LEFT, TOP); // Выравнивание для текста в блоке
-    // Внутренние отступы для текста в блоке
+    textAlign(LEFT, TOP);
     text(currentSceneData.text, tbX + textBoxPadding, tbY + textBoxPadding, tbW - textBoxPadding * 2, tbH - textBoxPadding * 2);
   }
 
-  // 3. Отрисовка кнопок
   textAlign(CENTER, CENTER);
   textSize(buttonFontSize);
   for (let i = 0; i < visibleButtons.length; i++) {
     let btn = visibleButtons[i];
-    // Проверка наведения мыши
     if (mouseX > btn.x && mouseX < btn.x + btn.w && mouseY > btn.y && mouseY < btn.y + btn.h) {
       fill(buttonHoverColor);
     } else {
@@ -98,10 +82,15 @@ function draw() {
   }
 }
 
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight); // Изменяем размер холста при изменении окна
+  prepareButtons(); // Пересчитываем позиции кнопок
+}
+
 function loadScene(id) {
   if (!story[id]) {
     console.error("Scene with id not found:", id);
-    currentSceneData = { text: "Ошибка: Сцена '" + id + "' не найдена.", background: Object.keys(loadedImages)[0] || null }; // Показать какую-то ошибку
+    currentSceneData = { text: "Ошибка: Сцена '" + id + "' не найдена.", background: Object.keys(loadedImages)[0] || null };
     visibleButtons = [{
         text: "Начать сначала",
         next: "scene1",
@@ -113,7 +102,7 @@ function loadScene(id) {
 
   currentSceneId = id;
   currentSceneData = story[id];
-  visibleButtons = []; // Очищаем старые кнопки
+  visibleButtons = [];
 
   if (currentSceneData.choices) {
     currentSceneData.choices.forEach(choice => {
@@ -122,43 +111,33 @@ function loadScene(id) {
   } else if (currentSceneData.next) {
     visibleButtons.push({ text: "Далее", next: currentSceneData.next });
   } else {
-    // Конец истории или нет `next` (как в credits)
     visibleButtons.push({ text: "Начать сначала", next: "scene1", isRestart: true });
   }
   prepareButtons();
 }
 
 function prepareButtons() {
-    const totalButtons = visibleButtons.length;
-    if (totalButtons === 0) return;
+  const totalButtons = visibleButtons.length;
+  if (totalButtons === 0) return;
 
-    // Располагаем кнопки под текстовым блоком
-    // Можно сделать более сложную логику для горизонтального расположения, если кнопок мало
-    const buttonAreaY = height - textBoxPadding - (buttonHeight + buttonPadding) * totalButtons;
-    const buttonWidth = width / 2; // Ширина кнопки (можно настроить)
+  const buttonAreaY = height - textBoxPadding - (buttonHeight + buttonPadding) * totalButtons;
+  const buttonWidth = width / 2;
 
-    for (let i = 0; i < totalButtons; i++) {
-        let btn = visibleButtons[i];
-        btn.w = buttonWidth;
-        btn.h = buttonHeight;
-        btn.x = (width - btn.w) / 2; // Центрируем кнопку
-        btn.y = buttonAreaY + i * (buttonHeight + buttonPadding);
-    }
+  for (let i = 0; i < totalButtons; i++) {
+    let btn = visibleButtons[i];
+    btn.w = buttonWidth;
+    btn.h = buttonHeight;
+    btn.x = (width - btn.w) / 2;
+    btn.y = buttonAreaY + i * (buttonHeight + buttonPadding);
+  }
 }
-
 
 function mousePressed() {
   for (let i = 0; i < visibleButtons.length; i++) {
     let btn = visibleButtons[i];
     if (mouseX > btn.x && mouseX < btn.x + btn.w && mouseY > btn.y && mouseY < btn.y + btn.h) {
       loadScene(btn.next);
-      break; // Прерываем цикл, так как клик обработан
+      break;
     }
   }
 }
-
-// Можно добавить обработку изменения размера окна, если холст адаптивный
-// function windowResized() {
-//   resizeCanvas(windowWidth, canvasHeight); // или другие размеры
-//   prepareButtons(); // Пересчитать позиции кнопок
-// }
