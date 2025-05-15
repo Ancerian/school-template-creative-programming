@@ -141,3 +141,25 @@ function mousePressed() {
     }
   }
 }
+
+// Не забудьте добавить эти стили в ваш HTML, чтобы убрать прокрутку и отступы:
+/*
+<style>
+  body {
+    margin: 0;
+    overflow: hidden; // Убирает прокрутку
+  }
+  canvas {
+    display: block; // Убирает лишний нижний отступ под canvas
+  }
+</style>
+*/
+
+document.addEventListener('mousemove', (event) => {
+  const header = document.querySelector('header');
+  if (event.clientY <= 50) {
+    header.classList.add('visible'); // Show header
+  } else {
+    header.classList.remove('visible'); // Hide header
+  }
+});
