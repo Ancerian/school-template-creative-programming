@@ -65,3 +65,15 @@ body {
     background-color: #000000c4;
     transform: scale(1.05);
   }
+  header {
+  justify-content: flex-start; /* Кнопка меню слева */
+  padding: 10px;
+  box-sizing: border-box;
+  position: fixed; /* Fix the header at the top */
+  top: -100px; /* Hide it above the viewport */
+  transition: top 0.3s ease-in-out; /* Smooth transition */
+}
+
+header.visible {
+  top: 0; /* Slide down when visible */
+}
